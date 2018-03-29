@@ -26,7 +26,6 @@ public class UserDao implements ClassDao<User> {
 	public List<User> getAll() {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		List<User> listUser = jdbcTemplate.query("Select * from `user`", new BeanPropertyRowMapper(User.class));
-		System.out.println("Get all");
 		return listUser;
 	}
 
@@ -35,13 +34,11 @@ public class UserDao implements ClassDao<User> {
 				"Update ghepship_ss2.user Set username = ?, password = ?, location = ?, gmail = ?, facebook = ?, profilepicture = ?, info = ?, phonenumber = ?, accountbalance = ?, authenticationid = ?, notificaid = ? where userid = ?",
 				t.getUsername(), t.getPassword(), t.getLocation(), t.getGmail(), t.getFacebook(), t.getProfilePicture(),
 				t.getInfomation(), t.getPhoneNumber(), t.getAccountbalance(),t.getAuthenticationid(), t.getNotificaid(), t.getUserid());
-		System.out.println("Updated");
 		return true;
 	}
 
 	public boolean deleteByid(int id) {
 		jdbcTemplate.update("delete from `user` where userid = ?",new Object[] {id});
-		System.out.println("delete");
 		return true;
 	}
 
@@ -50,7 +47,6 @@ public class UserDao implements ClassDao<User> {
 				"Insert INTO `user`(username,password,location,gmail,facebook,profilepicture,info,phonenumber,accountbalance,authenticationid,notificaid) Values(?,?,?,?,?,?,?,?,?,?,?)",
 				t.getUsername(), t.getPassword(), t.getLocation(), t.getGmail(), t.getFacebook(), t.getProfilePicture(),
 				t.getInfomation(), t.getPhoneNumber(), t.getAccountbalance(),t.getAuthenticationid(), t.getNotificaid());
-		System.out.println("save");
 		return true;
 	}
 	/*

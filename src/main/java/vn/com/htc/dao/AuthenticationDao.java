@@ -1,18 +1,49 @@
 package vn.com.htc.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import vn.com.htc.model.Authentication;
 
-@Repository(value="AuthenticationDao")
+@Repository
+@Qualifier("AuthenticationDao")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class AuthenticationDao implements ClassDao<Authentication>{
-	Connection conn;
+	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+
+	public Authentication getById(int id) {
+		Authentication authentication = (Authentication) jdbcTemplate.queryForObject("select * from `authentication` where authenticationid = ?" ,new Object[] {id}	 ,new BeanPropertyRowMapper(Authentication.class));
+		return authentication;
+	}
+
+	public List<Authentication> getAll() {
+		List<Authentication> listAuthentication = jdbcTemplate.query("select * from `authentication`", new BeanPropertyRowMapper(Authentication.class));
+		return listAuthentication;
+	}
+
+	public boolean updateOne(Authentication t) {
+		jdbcTemplate.update("update `authentication` set authenticationid = ?, authenticationName = ?",t.getAuthenticationid(),t.getAuthenticationName());
+		return true;
+	}
+
+	public boolean deleteByid(int id) {
+		jdbcTemplate.update("detele from `authentication` where authenticationid = ?",new Object[] {id});
+		return true;
+	}
+
+	public boolean save(Authentication t) {
+		jdbcTemplate.update("insert into `authentication` values (?,?)",t.getAuthenticationid(),t.getAuthenticationName());
+		return true;
+	}
+	
+	/*Connection conn;
 	public AuthenticationDao() {
 		GetDB get = new GetDB();
 		conn = get.getDB();
@@ -97,6 +128,6 @@ public class AuthenticationDao implements ClassDao<Authentication>{
 		}
 		return false;
 		
-	}
+	}*/
 
 }

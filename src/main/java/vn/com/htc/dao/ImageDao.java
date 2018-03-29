@@ -1,17 +1,49 @@
 package vn.com.htc.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import vn.com.htc.model.Image;
 
-@Repository(value="ImageDao")
+@Repository
+@Qualifier("ImageDao")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ImageDao implements ClassDao<Image>{
-	java.sql.Connection conn;
+	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	
+	public Image getById(int id) {
+		
+		Image image = (Image) jdbcTemplate.queryForObject("select * from `image` where imageid = ?", new Object[] {id},new BeanPropertyRowMapper(Image.class));
+		return image;
+	}
+
+	public List<Image> getAll() {
+		List<Image> listImage = jdbcTemplate.query("select * from `image`",new BeanPropertyRowMapper(Image.class));
+		return listImage;
+	}
+
+	public boolean updateOne(Image t) {
+		jdbcTemplate.update("Update `image` set itemid = ?, imageLink = ? where imageid = ?",t.getItemid(),t.getImageLink(),t.getImageid());
+		return true;
+	}
+
+	public boolean deleteByid(int id) {
+		jdbcTemplate.update("delete from `image` where imageid = ?",new Object[] {id});
+		return true;
+	}
+
+	public boolean save(Image t) {
+		jdbcTemplate.update("Insert into `image` values(?,?,?) ",t.getImageid(),t.getItemid(),t.getImageLink());
+		return true;
+	}
+	/*java.sql.Connection conn;
 	public ImageDao() {
 		GetDB get = new GetDB();
 		conn = get.getDB();
@@ -101,5 +133,7 @@ public class ImageDao implements ClassDao<Image>{
 			System.out.println(e.getMessage());
 		}
 		return false;
-	}
+	}*/
+
+	
 }

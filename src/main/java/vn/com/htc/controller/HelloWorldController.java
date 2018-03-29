@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.htc.model.Notification;
-import vn.com.htc.model.User;
 import vn.com.htc.service.NotificaService;
  
 @Controller

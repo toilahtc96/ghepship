@@ -5,13 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.com.htc.dao.BankCardDao;
+import vn.com.htc.dao.ClassDao;
 import vn.com.htc.model.BankCard;
 
-@Service(value = "BankCardService")
+@Service("BankCardService")
 public class BankCardService implements ClassService<BankCard> {
 	@Autowired
-	private BankCardDao bankCardDao;
+	private ClassDao<BankCard> bankCardDao;
 
 	 
 	public BankCard getById(int id) {

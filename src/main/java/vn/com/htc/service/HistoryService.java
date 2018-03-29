@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.com.htc.dao.HistoryDao;
+import vn.com.htc.dao.ClassDao;
 import vn.com.htc.model.History;
 
-@Service(value="HistoryService")
+@Service("HistoryService")
 public class HistoryService implements ClassService<History> {
 
 	@Autowired
-	private HistoryDao historyDao;
+	private ClassDao<History> historyDao;
 	
 	public History getById(int id) {
 		return historyDao.getById(id);

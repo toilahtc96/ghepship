@@ -1,19 +1,54 @@
 package vn.com.htc.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import vn.com.htc.model.ItemType;
 
 
-@Repository(value="ItemTypeDao")
+@Repository
+@Qualifier("ItemTypeDao")
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class ItemTypeDao implements ClassDao<ItemType>{
-	Connection conn;
+	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+
+	public ItemType getById(int id) {
+		
+		ItemType itemType = (ItemType) jdbcTemplate.queryForObject("select * from `itemtypr` where typeid = ?"
+									, new Object[] {id},new BeanPropertyRowMapper(ItemType.class));
+		return itemType;
+	}
+
+	public List<ItemType> getAll() {
+		List<ItemType> listItemType = jdbcTemplate
+				.query("select* from `itemtype`", new BeanPropertyRowMapper(ItemType.class));
+		return listItemType;
+	}
+
+	public boolean updateOne(ItemType t) {
+		jdbcTemplate.update("Update `itemtype` set size = ?, description = ?, suggestedPrice = ? where typeid = ?",t.getSize(),t.getDescription(),t.getSuggestedPrice(),t.getTypeid());
+		
+		return true;
+	}
+
+	public boolean deleteByid(int id) {
+		jdbcTemplate.update("delete from `itemtype` where typeid = ?",new Object[] {id});
+		return true;
+	}
+
+	public boolean save(ItemType t) {
+		jdbcTemplate.update("Insert into `itemtype` values(?,?,?,?)",t.getTypeid(),t.getSize(),t.getDescription(),t.getSuggestedPrice());
+		return true;
+	}
+	
+	/*Connection conn;
 	public ItemTypeDao() {
 		GetDB get = new GetDB();
 		conn = get.getDB();
@@ -105,5 +140,5 @@ public class ItemTypeDao implements ClassDao<ItemType>{
 		}
 		return false;
 	}
-	
+*/	
 }

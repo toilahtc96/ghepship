@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import vn.com.htc.dao.ItemTypeDao;
+import vn.com.htc.dao.ClassDao;
 import vn.com.htc.model.ItemType;
 
-@Service(value = "ItemTypeService")
+@Service("ItemTypeService")
+@Transactional
 public class ItemTypeService implements ClassService<ItemType>{
 	@Autowired
-	private ItemTypeDao itemTypeDao;
+	private ClassDao<ItemType> itemTypeDao;
 
 	
 	public ItemType getById(int id) {

@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.com.htc.dao.AuthenticationDao;
+import vn.com.htc.dao.ClassDao;
 import vn.com.htc.model.Authentication;
 
-@Service(value="AuthenticationService")
+@Service("AuthenticationService")
 public class AuthenticationService implements ClassService<Authentication>{
 
 	@Autowired
-	private AuthenticationDao authenticationDao;
+	private ClassDao<Authentication> authenticationDao;
 	
 	public Authentication getById(int id) {
 		return authenticationDao.getById(id);

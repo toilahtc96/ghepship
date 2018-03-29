@@ -1,15 +1,15 @@
 package vn.com.htc.model;
 
 public class BankCard {
-	private int cartid;
+	private int cardid;
 	private int userid;
 	private String accountNumber;
 	private double accountBalance;
-	public int getCartid() {
-		return cartid;
+	public int getCardid() {
+		return cardid;
 	}
-	public void setCartid(int cartid) {
-		this.cartid = cartid;
+	public void setCardid(int cardid) {
+		this.cardid = cardid;
 	}
 	public int getUserid() {
 		return userid;
@@ -31,12 +31,12 @@ public class BankCard {
 	}
 	@Override
 	public String toString() {
-		return "BankCard [cartid=" + cartid + ", userid=" + userid + ", accountNumber=" + accountNumber
+		return "BankCard [cartid=" + cardid + ", userid=" + userid + ", accountNumber=" + accountNumber
 				+ ", accountBalance=" + accountBalance + "]";
 	}
-	public BankCard(int cartid, int userid, String accountNumber, double accountBalance) {
+	public BankCard(int cardid, int userid, String accountNumber, double accountBalance) {
 		super();
-		this.cartid = cartid;
+		this.cardid = cardid;
 		this.userid = userid;
 		this.accountNumber = accountNumber;
 		this.accountBalance = accountBalance;

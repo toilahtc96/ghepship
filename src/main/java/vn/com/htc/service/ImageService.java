@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.com.htc.dao.ImageDao;
+import vn.com.htc.dao.ClassDao;
 import vn.com.htc.model.Image;
 
-@Service(value = "ImageService")
+@Service("ImageService")
 public class ImageService implements ClassService<Image> {
 
 	@Autowired
-	private ImageDao imageDao;
+	private ClassDao<Image> imageDao;
 	
 	public Image getById(int id) {
 		// TODO Auto-generated method stub
