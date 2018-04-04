@@ -10,8 +10,9 @@
 <body>
 	<center>
 		<h2>Hello World</h2>
-		<h2>id description: ${item.getDescription() }</h2>
-		<h2>idUpdate description: ${itemUpdate.getDescription() }</h2>
+		<c:forEach items="${ listHistory}" var="history">
+			<h2>${history.toString() }</h2>
+		</c:forEach>
 	</center>
 </body>
 </html>

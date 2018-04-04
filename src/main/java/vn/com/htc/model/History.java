@@ -10,7 +10,6 @@ public class History {
 	}
 	public History() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getUserid() {
 		return userid;
